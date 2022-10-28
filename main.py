@@ -1,9 +1,19 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, status
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
-@app.get("/")
+origins = ["https://localhost:-5000"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods = ["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/", status_code=status.HTTP_200_OK)
 async def task():
     
     return {
